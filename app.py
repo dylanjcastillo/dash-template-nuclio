@@ -11,6 +11,7 @@ from datetime import datetime
 
 pio.templates.default = "simple_white"
 
+# Lee los datos
 df = pd.read_csv("avocado.csv", index_col=0).reset_index(drop=True)
 df["Date"] = pd.to_datetime(df.Date, format="%Y-%m-%d")
 df.sort_values("Date", inplace=True)
@@ -19,7 +20,10 @@ avocado_types = df.type.unique()
 min_date = df.Date.min()
 max_date = df.Date.max()
 
+# Selecciona el color del header
 COLOR_HEADER = "rgb(14, 88, 20)"
+
+# Lista con los títulos y los filtros de la barra de la izquierda.
 MENU = [
     html.P("Avocado Type", className="title-filter"),
     dcc.RadioItems(
@@ -45,8 +49,11 @@ MENU = [
         initial_visible_month=min_date,
     ),
 ]
+
+# Lista con los gráficos
 GRAFICOS = [dcc.Graph(id="line-chart"), dcc.Graph(id="donut-chart")]
 
+# Estructura de la app (no hace falta modificarla)
 app = dash.Dash(__name__)
 app.layout = html.Div(
     children=[
@@ -73,6 +80,7 @@ app.layout = html.Div(
 )
 
 
+# Callback que actualiza los gráficos
 @app.callback(
     [Output("line-chart", "figure"), Output("donut-chart", "figure")],
     [
