@@ -1,9 +1,7 @@
 import dash
 
-from dash.dependencies import Input, Output
+from dash import Input, Output, html, dcc
 
-import dash_html_components as html
-import dash_core_components as dcc
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
